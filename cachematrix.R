@@ -29,10 +29,10 @@ makeCacheMatrix <- function(x = matrix()) {
     ## @x: pass a square, invertible matrix
     ## 
     ## return: list that contains following functions
-    ##            1. define the matrix
-    ##            2. retrive the matrix
-    ##            3. find the inverse
-    ##            4. return the inverse
+    ##            1. defines and stores the matrix
+    ##            2. retrive the matrix when needed
+    ##            3. stores the inverse
+    ##            4. return the inverse when needed
     ##
     ## We can then use this list as input to cache solve
   
@@ -47,9 +47,12 @@ makeCacheMatrix <- function(x = matrix()) {
     
     matRetrive <- function( ) x  # return the input matrix
     
-    matInverse         <- function( inverse ) invMat <<- inverse
-    matInverseRetrive  <- function( ) invMat
+    # store the inverse
+    matInverse         <- function( inverse ) invMat <<- inverse 
+    # return the inverse matrix 
+    matInverseRetrive  <- function( ) invMat   
     
+    # create a list of all the functions
     list( matDefine = matDefine, matRetrive = matRetrive, 
           matInverse = matInverse, matInverseRetrive = matInverseRetrive )
   } # end makeCacheMatrix function
@@ -59,17 +62,18 @@ cacheSolve <- function(x, ...) {
         ## @x: output of cached matrix
         ## return: inverse of the matrix
   
+        # retrive inverse matrix from cache, if there 
         invMat <- x$matInverseRetrive()
         
         # if already calculated the inverse:
         if(!is.null(invMat)){
               # get from the cache
-              message("getting inverse from cache")
+              message("getting inverse from cache...")
               return(invMat)
         } # end if statement
         
         # otherwise compute inverse ...
-        message("computing the inverse")
+        message("computing the inverse...")
         mat.solve <- x$matRetrive()
         invMat <- solve(mat.solve, ...)
         
