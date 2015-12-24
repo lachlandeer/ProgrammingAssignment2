@@ -24,12 +24,34 @@
 ##################################################################
 
 
-## functions do
-
-## Write a short comment describing this function
-
 makeCacheMatrix <- function(x = matrix()) {
-
+    ## @x: pass a square. invertible matrix
+    ## 
+    ## return: list that contains following functions
+    ##            1. define the matrix
+    ##            2. retrive the matrix
+    ##            3. find the inverse
+    ##            4. return the inverse
+    ##
+    ## We can then use this list as input to cache solve
+  
+    invMat <- NULL
+    
+    matDefine <- function( y ){
+          ## "<<-" assigns value to an object from a different environment
+          ## than th current one
+      
+          x      <<- y
+          invMat <-  NULL
+      }
+    
+    matRetrive <- function( ) x  # return the input matrix
+    
+    matInverse         <- function( inverse ) inv <<- inverse
+    matInverseRetrive  <- function( ) inv
+    
+    list( matDefine = matDefine, matRetrive = matRetrive, 
+          matInverse = matInverse, matInverseRetrive = matInverseRetrive )
 }
 
 
