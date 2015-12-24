@@ -62,18 +62,19 @@ cacheSolve <- function(x, ...) {
         invMat <- x$matInverseRetrive()
         
         # if already calculated the inverse:
-        if( !is.null(invMat) ){
+        if(!is.null(invMat)){
               # get from the cache
               message("getting inverse from cache")
               return(invMat)
         } # end if statement
         
         # otherwise compute inverse ...
+        message("computing the inverse")
         mat.solve <- x$matRetrive()
         invMat <- solve(mat.solve, ...)
         
         # ... and then cache it
-        x$matInverse <-(invMat)
+        x$matInverse(invMat)
         
         # and return it to user
         return(invMat)

@@ -37,3 +37,10 @@ test <- function( z ){
         duration.cache <- Sys.time( ) - start.time.2
         print(duration.cache)
 }
+
+
+# now test
+set.seed(1234567890)
+r = rnorm(1000000)
+mat1 = matrix(r, nrow=1000, ncol=1000)
+test(mat1)
