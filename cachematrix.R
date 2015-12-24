@@ -40,10 +40,9 @@ makeCacheMatrix <- function(x = matrix()) {
     matDefine <- function( y ){
           ## "<<-" assigns value to an object from a different environment
           ## than th current one
-      
           x      <<- y
           invMat <-  NULL
-      }
+      } # end matDefine function
     
     matRetrive <- function( ) x  # return the input matrix
     
@@ -52,11 +51,31 @@ makeCacheMatrix <- function(x = matrix()) {
     
     list( matDefine = matDefine, matRetrive = matRetrive, 
           matInverse = matInverse, matInverseRetrive = matInverseRetrive )
-}
+  } # end makeCacheMatrix function
 
 
 ## Write a short comment describing this function
 
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
-}
+        ## @x: output of cached matrix
+        ## return: inverse of the matrix
+  
+        inv = x$matInverseRetrive()
+        
+        # if already calculated the inverse:
+        if( !is.null(inv) ){
+              # get from the cache
+              message("getting inverse from cache")
+              return(inv)
+        } # end if statement
+        
+        # otherwise compute inverse ...
+        mat.solve <- x$matRetrive
+        inv <- solve( mat.solve , ... )
+        
+        # ... and then cache it
+        x$matInverse <-(inv)
+        
+        # and return it to user
+        return(inv)
+} # end cacheSolve function
