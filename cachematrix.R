@@ -1,4 +1,5 @@
 ##################################################################
+# cacheMatrix.R
 #
 #          Caching the Inverse of a Matrix
 #
@@ -25,7 +26,7 @@
 
 
 makeCacheMatrix <- function(x = matrix()) {
-    ## @x: pass a square. invertible matrix
+    ## @x: pass a square, invertible matrix
     ## 
     ## return: list that contains following functions
     ##            1. define the matrix
@@ -46,8 +47,8 @@ makeCacheMatrix <- function(x = matrix()) {
     
     matRetrive <- function( ) x  # return the input matrix
     
-    matInverse         <- function( inverse ) inv <<- inverse
-    matInverseRetrive  <- function( ) inv
+    matInverse         <- function( inverse ) invMat <<- inverse
+    matInverseRetrive  <- function( ) invMat
     
     list( matDefine = matDefine, matRetrive = matRetrive, 
           matInverse = matInverse, matInverseRetrive = matInverseRetrive )
@@ -60,22 +61,22 @@ cacheSolve <- function(x, ...) {
         ## @x: output of cached matrix
         ## return: inverse of the matrix
   
-        inv = x$matInverseRetrive()
+        invMat <- x$matInverseRetrive()
         
         # if already calculated the inverse:
-        if( !is.null(inv) ){
+        if( !is.null(invMat) ){
               # get from the cache
               message("getting inverse from cache")
-              return(inv)
+              return(invMat)
         } # end if statement
         
         # otherwise compute inverse ...
-        mat.solve <- x$matRetrive
-        inv <- solve( mat.solve , ... )
+        mat.solve <- x$matRetrive()
+        invMat <- solve(mat.solve, ...)
         
         # ... and then cache it
-        x$matInverse <-(inv)
+        x$matInverse <-(invMat)
         
         # and return it to user
-        return(inv)
+        return(invMat)
 } # end cacheSolve function
